@@ -11,7 +11,8 @@ module.exports = {
   output: {
     // filename: 'bundle.js',
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -48,11 +49,17 @@ module.exports = {
       }
     ]
   },
+  devtool: 'inline-source-map',
+  devServer: {
+    contentBase: './dist'
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html' // 在指定模板的基础上，引入构建后的 js 
-      // title: 'Output Management's
+      favicon: 'favicon.ico', // 指定浏览器标签图标
+      template: 'index.html', // 在指定模板的基础上，引入构建后的 js 
+      // title: 'Output Management's,
+      inject: true
     })
   ]
 };
