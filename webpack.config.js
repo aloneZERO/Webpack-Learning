@@ -4,7 +4,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
+  // mode: 'development',
+  mode: 'production',
   entry: {
     // app: './src/index.js',
     // print: './src/print.js'
@@ -51,7 +52,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'inline-source-map',
+  devtool: 'inline-source-map', // 仅推荐开发环境下使用
   devServer: {
     contentBase: './dist',
     hot: true

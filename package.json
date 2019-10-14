@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "sideEffects": [
+    "./src/some-side-effectful-file.js",
+    "*.css"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch --config webpack.config.js",
