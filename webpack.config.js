@@ -1,18 +1,20 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/index.js',
-    print: './src/print.js'
+    // app: './src/index.js',
+    // print: './src/print.js'
+    app: './src/index.js'
   },
   output: {
     // filename: 'bundle.js',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/' // for express
   },
   module: {
     rules: [
@@ -51,7 +53,8 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    hot: true
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -60,6 +63,8 @@ module.exports = {
       template: 'index.html', // 在指定模板的基础上，引入构建后的 js 
       // title: 'Output Management's,
       inject: true
-    })
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
