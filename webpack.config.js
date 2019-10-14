@@ -1,10 +1,16 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+    print: './src/print.js'
+  },
   output: {
-    filename: 'bundle.js',
+    // filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -41,5 +47,12 @@ module.exports = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: './index.html' // 在指定模板的基础上，引入构建后的 js 
+      // title: 'Output Management's
+    })
+  ]
 };
