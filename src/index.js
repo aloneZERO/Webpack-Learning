@@ -1,8 +1,10 @@
 import { cube } from './math.js';
 import './style.css';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   console.log('Looks like we are in development mode!');
+} else if (process.env.NODE_ENV === 'production') {
+  console.log('Looks like we are in production mode!');
 }
 
 function component() {
