@@ -1,13 +1,12 @@
 import _ from 'lodash';
-// 导入的 css 文件源码，
-// 经过 webpack 处理，会动态的在页面生成 style 标签
-import './style.css';
+import Print from './print.js';
 
 function component() {
   var element = document.createElement('div');
   
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
+  // element.onclick = Print.bind(null, 'Hello webpack!');
+  element.onclick = Print.bind(null, 'Hello webpack!!!');
   
   return element;
 }
