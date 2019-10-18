@@ -4,9 +4,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  // entry: './src/index.js',
+  entry: {
+    polyfills: './src/polyfills.js',
+    index: './src/index.js'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -25,7 +29,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Leo Webpack'
+      title: 'Leo Webpack',
+      template: 'index.html'
     }),
     new webpack.ProvidePlugin({
       _: 'lodash', // 当 webpack 发现'_'被引用时，自动引入 lodash
