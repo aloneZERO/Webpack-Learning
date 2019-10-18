@@ -1,18 +1,30 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  devtool: 'inline-source-map',
   module: {
-    rules: [{
-      test: /\.css$/, // 正则匹配文件后缀名
-      use: [ // css 文件都交给这两个 loader 处理
-        'style-loader',
-        'css-loader'
-      ]
-    }]
-  }
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ]
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'TypeScript'
+    })
+  ]
 };

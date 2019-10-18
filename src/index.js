@@ -1,15 +1,9 @@
-import _ from 'lodash';
-// 导入的 css 文件源码，
-// 经过 webpack 处理，会动态的在页面生成 style 标签
-import './style.css';
-
+"use strict";
+exports.__esModule = true;
+var _ = require("lodash");
 function component() {
-  var element = document.createElement('div');
-  
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
-  
-  return element;
+    var element = document.createElement('div');
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    return element;
 }
-
 document.body.appendChild(component());
