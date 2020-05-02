@@ -1,6 +1,6 @@
 # Webpack-Learning
 
-动手尝试[官方文档指南](https://webpack.js.org)的示例，用分支划分章节。
+动手尝试[官方文档指南](https://webpack.js.org)的示例，用分支划分章节。主分支增加极客时间《[玩转webpack](https://time.geekbang.org/course/intro/100028901)》对应的练习代码。
 
 ```bash
 # 查看所有远程分支
