@@ -4,21 +4,20 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  // mode: 'development',
-  mode: 'production',
-  entry: {
+  entry: { // 1.打包入口文件
     // app: './src/index.js',
     // print: './src/print.js'
     app: './src/index.js'
   },
-  output: {
+  output: { // 2.打包的输出
     // filename: 'bundle.js',
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/' // for express
   },
+  mode: 'production', // 3.环境 | development
   module: {
-    rules: [
+    rules: [ // 4.Loader 配置
       {
         test: /\.css$/, // 正则匹配文件后缀名
         use: [ // css 文件都交给这两个 loader 处理
@@ -52,12 +51,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'inline-source-map', // 仅推荐开发环境下使用
-  devServer: {
-    contentBase: './dist',
-    hot: true
-  },
-  plugins: [
+  plugins: [ // 5.插件配置
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       favicon: 'favicon.ico', // 指定浏览器标签图标
@@ -67,5 +61,10 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  devtool: 'inline-source-map', // 仅推荐开发环境下使用
+  devServer: {
+    contentBase: './dist',
+    hot: true
+  }
 };

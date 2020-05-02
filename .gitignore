@@ -1,5 +1,4 @@
-# myself
-dist
+dist/*.js
 
 # Logs
 logs
