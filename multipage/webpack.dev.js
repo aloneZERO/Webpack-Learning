@@ -1,18 +1,59 @@
 'use strict';
 const path = require('path');
+const glob = require('glob');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpacExternalsPlugin = require('html-webpack-externals-plugin');
+
+/**
+ * 动态设置 entry 和 html-webpack-plugin
+ */
+const setMPA = () => {
+    const entry = {};
+    const htmlWebpackPlugins = [];
+
+    const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'));
+    // console.log('entryFiles', entryFiles);
+
+    Object.keys(entryFiles)
+        .map(index => {
+            const entryFile = entryFiles[index];
+            const pageName = entryFile.match(/src\/(.*)\/index\.js/)[1];
+            // console.log('pageName', pageName);
+
+            entry[pageName] = entryFile;
+            htmlWebpackPlugins.push(
+                new HtmlWebpackPlugin({
+                    template: path.resolve(__dirname, `src/${pageName}/index.ejs`),
+                    filename: `${pageName}.html`,
+                    chunks: [pageName],
+                    inject: true,
+                    minify: {
+                        html5: true,
+                        collapseWhitespace: true,
+                        minifyCSS: true,
+                        minifyJS: true,
+                        removeComments: true,
+                        useShortDoctype: true
+                    }
+                })
+            );
+        })
+
+    return {
+        entry,
+        htmlWebpackPlugins
+    }
+}
+
+const { entry, htmlWebpackPlugins } = setMPA();
 
 module.exports = {
-    mode: 'production',
-    entry: {
-        index: './src/main.js'
-    },
+    mode: 'development',
+    entry,
     output: {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js?[hash:8]',
@@ -82,56 +123,14 @@ module.exports = {
             filename: '[name].css?[contenthash:8]'
         }),
         new OptimizeCSSAssetsPlugin({
-            assetNameRegExp: /\.css/g, // 此处不能使用 $，因为 css 是以问号哈希值结尾的
+            assetNameRegExp: /\.css/g,
             cssProcessor: require('cssnano')
         }),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'src/index.ejs'),
-            filename: 'index.html',
-            chunks: [
-                'index', 
-                'vendors',
-                'commons'
-            ],
-            inject: true,
-            minify: {
-                html5: true,
-                collapseWhitespace: true,
-                minifyCSS: true,
-                minifyJS: true,
-                removeComments: true,
-                useShortDoctype: true
-            }
-        }),
-        // new HtmlWebpacExternalsPlugin({
-        //     externals: [
-        //         {
-        //             module: 'vue',
-        //             entry: 'https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js',
-        //             global: 'Vue'
-        //         }
-        //     ]
-        // })
-    ],
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all'
-                }
-            }
-        }
-        // splitChunks: {
-        //     minSize: 0,
-        //     cacheGroups: {
-        //         commons: {
-        //             name: 'commons',
-        //             chunks: 'all',
-        //             minChunks: 2
-        //         }
-        //     }
-        // }
-    }
+        new webpack.HotModuleReplacementPlugin()
+    ].concat(htmlWebpackPlugins),
+    devServer: {
+        contentBase: './dist',
+        hot: true
+    },
+    devtool: '#source-map',
 }

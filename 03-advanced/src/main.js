@@ -1,5 +1,10 @@
 import Vue from 'vue';
 import App from './App.vue';
+import { common } from './common';
+
+console.log(common());
+
+Vue.config.productionTip = false;
 
 new Vue({
     el: '#app',
