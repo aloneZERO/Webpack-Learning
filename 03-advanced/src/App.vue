@@ -13,6 +13,9 @@ export default {
         return {
             message: 'Made by Vue!'
         }
+    },
+    mounted() {
+        console.log('vue app running...');
     }
 }
 </script>
