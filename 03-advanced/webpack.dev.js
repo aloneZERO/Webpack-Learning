@@ -21,11 +21,17 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: 'vue-loader'
+                use: [
+                    'vue-loader',
+                    'eslint-loader'
+                ]
             },
             {
                 test: /\.js$/,
-                use: 'babel-loader',
+                use: [
+                    'babel-loader',
+                    'eslint-loader'
+                ],
                 exclude: /node_modules/
             },
             {

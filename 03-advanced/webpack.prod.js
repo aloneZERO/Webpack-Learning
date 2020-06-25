@@ -6,10 +6,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpacExternalsPlugin = require('html-webpack-externals-plugin');
+// const HtmlWebpacExternalsPlugin = require('html-webpack-externals-plugin');
 
 module.exports = {
     mode: 'production',
+    // mode: 'none',
     entry: {
         index: './src/main.js'
     },
@@ -22,11 +23,17 @@ module.exports = {
         rules: [
             {
                 test: /\.vue$/,
-                use: 'vue-loader'
+                use: [
+                    'vue-loader',
+                    'eslint-loader'
+                ]
             },
             {
                 test: /\.js$/,
-                use: 'babel-loader',
+                use: [
+                    'babel-loader',
+                    'eslint-loader'
+                ],
                 exclude: /node_modules/
             },
             {

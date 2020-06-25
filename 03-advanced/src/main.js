@@ -6,7 +6,8 @@ console.log(common());
 
 Vue.config.productionTip = false;
 
+// eslint-disable-next-line no-new
 new Vue({
     el: '#app',
-    render: h => h(App)
+    render: (h) => h(App)
 });
