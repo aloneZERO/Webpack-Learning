@@ -54,3 +54,50 @@ chunks 参数说明：
 - async 异步引入的库进行分离（默认）
 - initial 同步引入的库进行分离
 - all 所有引入的库进行分离（推荐）
+
+## Tree Shaking
+概念：1个模块可能有多个方法，只要其中某个方法使用到了，则整个文件都会被打到 bundle 里面，tree shaking 就是只把用到的方法打入 bundle，没用到的方法会在 uglify 阶段擦除掉。
+
+使用：webpack 默认支持，在 `.babelrc` 里设置 `modules:false` 即可。production 模式下默认开启。
+
+要求：必须是 ES6 模块语法，CommonJS 方式不支持。
+
+原理：利用 ES6 模块的特点：
+- 只能作为模块顶层的语句出现
+- import 的模块名只能是字符串常量
+- import binding 是不可变的
+
+## Scope Hoisting
+问题背景：打包后大量函数闭包包裹代码，导致体积增大。运行代码时创建的函数作用域变多，内存开销变大。
+
+原理：将所有模块的代码按照引用顺序放在一个函数作用域里，然后适当的重命名一些变量以防止变量名冲突。
+
+对比：通过 scope hoisting 可以减少函数声明和内存开销。
+
+使用：ModuleConcatenationPlugin，production 模式默认开启，必须 ES6 模块语法。
+
+## 代码分割
+webpack 可以将你的代码库分割成 chunks，当代码运行到需要它们的时候再进行加载。
+
+适用场景：
+- 抽离相同代码到一个共享块
+- 脚本懒加载，使得初始下载代码更小
+
+懒加载 JS 方式
+- CommonJS：`require.ensure`
+- ES6：`import()`（需要 babel 转换）
+
+```sh
+npm i -D @babel/plugin-syntax-dynamic-import
+```
+
+```js
+{
+    "plugins":["@babel/plugin-syntax-dynamic-import"]
+}
+```
+
+## ESLint
+
+- eslint-plugin-vue
+- eslint-config-airbnb
