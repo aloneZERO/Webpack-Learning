@@ -29,7 +29,7 @@ export default {
     },
     methods: {
         loadTest() {
-            import('./Test.vue').then((module) => {
+            import('./components/Test.vue').then((module) => {
                 console.log(module);
                 this.testComp = module.default;
             });

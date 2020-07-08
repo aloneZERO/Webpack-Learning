@@ -21,7 +21,9 @@ module.exports = {
     rules: {
         semi: 'off',
         indent: ['warn', 4],
+        'no-console': 'off',
         'linebreak-style': 'off',
+        'import/no-extraneous-dependencies': 'off',
         'comma-dangle': ['error', 'never'],
         // disallow reassignment of function parameters
         // disallow parameter object manipulation except for specific exclusions

@@ -101,3 +101,17 @@ npm i -D @babel/plugin-syntax-dynamic-import
 
 - eslint-plugin-vue
 - eslint-config-airbnb
+
+## SSR
+页面打开过程：
+1. 开始加载
+2. HTML加载成功，开始加载数据
+3. 数据加载成功，渲染成功，加载图片资源
+4. 图片加载成功，页面可交互
+
+服务端：
+- 所有模板等资源都存储在服务端
+- 内网机器拉取数据更快
+- 一个HTML返回所有数据
+
+服务端渲染的核心是减少请求。
