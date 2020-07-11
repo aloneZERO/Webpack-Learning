@@ -5,10 +5,13 @@
     <title>Hello Webpack</title>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <!--SSR_HTML_PLACEHOLDER-->
+    </div>
     <div id="root"></div>
     <script>
         <%= require('raw-loader!babel-loader!../node_modules/lib-flexible/flexible.js') %>
     </script>
+    <!--INITIAL_DATA_PLACEHOLDER-->
 </body>
 </html>
