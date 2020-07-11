@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
     output: {
@@ -84,6 +85,21 @@ module.exports = {
         new OptimizeCSSAssetsPlugin({
             assetNameRegExp: /\.css/g, // 此处不能使用 $，因为 css 是以问号哈希值结尾的
             cssProcessor: require('cssnano')
-        })
+        }),
+        new FriendlyErrorsWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'src/index.ejs'),
+            filename: 'index.html',
+            chunks: ['index'],
+            inject: true,
+            minify: {
+                html5: true,
+                collapseWhitespace: true,
+                minifyCSS: true,
+                minifyJS: true,
+                removeComments: true,
+                useShortDoctype: true
+            }
+        }),
     ]
 }

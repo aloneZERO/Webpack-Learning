@@ -115,3 +115,26 @@ npm i -D @babel/plugin-syntax-dynamic-import
 - 一个HTML返回所有数据
 
 服务端渲染的核心是减少请求。
+
+## 优化构建命令行日志
+
+统计信息 stats
+| Preset | Alternative | Description
+| - | - | - 
+|`errors-only`|none|只在发生错误时输出
+|`minimal`|none|只在发生错误或有新的编译时输出
+|`none`|`false`|没有输出
+|`normal`|`true`|标准输出
+|`verbose`|none|全部输出
+
+使用 `friendly-errors-webpack-plugin`，`stats` 设置成 `errors-only`
+
+## 构建异常和中断处理
+
+CI/CD 的 pipline 或者发布系统需要知道当前构建状态。命令行输入 `echo $?` 可以打印之前抛出的错误码。
+
+Webpack4之前的版本不会抛出构建错误的错误码。
+
+Node.js 中的 `process.exit` 规范
+- 0 表示成功完成，回调函数中，err 为 null
+- 非 0 表示执行失败，回调函数中，err 不为 null，err.code 就是传给 exit 的数字
