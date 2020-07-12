@@ -3,7 +3,6 @@ const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -82,11 +81,18 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css?[contenthash:8]'
         }),
-        new OptimizeCSSAssetsPlugin({
-            assetNameRegExp: /\.css/g, // 此处不能使用 $，因为 css 是以问号哈希值结尾的
-            cssProcessor: require('cssnano')
-        }),
         new FriendlyErrorsWebpackPlugin(),
+        function() {
+            this.hooks.done.tap('done', (stats) => {
+                if (stats.compilation.errors 
+                    && stats.compilation.errors.length
+                    && process.argv.indexOf('--watch')==-1) 
+                {
+                    console.log('build error');
+                    process.exit(1);
+                }
+            })
+        },
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src/index.ejs'),
             filename: 'index.html',
