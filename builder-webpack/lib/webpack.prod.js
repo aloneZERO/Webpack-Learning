@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpacExternalsPlugin = require('html-webpack-externals-plugin');
 const Cssnano = require('cssnano');
