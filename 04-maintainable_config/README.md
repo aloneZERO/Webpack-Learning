@@ -55,3 +55,20 @@ merge(
 针对 `builder-webpack` 的冒烟测试
 - 构建是否成功
 - 每次构建完成 build 目录是否有内容输出
+
+## 单元测试与测试覆盖率
+
+- 技术选型：Mocha + Chai
+- 测试代码：describe，it，except
+- 测试命令：mocha add.test.js
+- 测试覆盖率：istanbul
+
+```js
+const { expect } = require('chai')
+const add = require('./add')
+describe('use expect: add.js', () => {
+    it('add(1,2)===3', () => {
+        expect(add(1,2)).to.equal(3)
+    })
+})
+```

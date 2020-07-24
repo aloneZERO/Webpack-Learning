@@ -3,3 +3,5 @@
 /dist
 test/**/template/*
 !test/**/template/.gitkeep
+.nyc*
+coverage
