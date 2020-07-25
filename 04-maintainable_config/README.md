@@ -83,3 +83,56 @@ describe('use expect: add.js', () => {
 travis.yml 文件内容
 - install 安装项目依赖
 - script 运行测试用例
+
+## 发布到 NPM
+
+添加用户：npm adduser
+
+升级版本：
+- 升级补丁版本号：npm version patch
+- 升级小版本号：npm version minor
+- 升级大版本号：npm version major
+
+发布版本：
+1. npm login
+2. npm publish
+
+## Commit 规范和 Changelog 的生成
+
+提交格式要求：
+```html
+<type>(<scope>): <subject>
+<BLANK_LINE>
+<body>
+<BLANK_LINE>
+<footer>
+```
+
+type 详细说明：
+
+- feat：新增 feature
+- fix：修复 bug
+- docs：仅修改了文档，比如 README，CHANGELOG，CONTRIBUTE 等
+- style：仅修改了空格、格式缩进、逗号等，不改变代码逻辑
+- refactor：代码重构，没有加新功能或者修复 bug
+- perf：优化相关，比如提升性能、体验
+- test：测试用例，包括单元测试、集成测试等
+- revert：回滚到上一个版本
+- build：改变构建流程，或者增加依赖、工具等
+- ci：修改持续集成流程
+- chore：其他
+
+```sh
+npm i -D husky
+npm i -D conventional-changelog-cli
+```
+
+通过 commitmsg 钩子校验信息
+```json
+{
+    "scripts": {
+        "commitmsg": "validate-commit-msg",
+        "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    }
+}
+```
