@@ -1,12 +1,15 @@
+/* eslint-disable */
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const HappyPack = require('happypack');
 
 module.exports = {
+    entry: {
+        index: './src/main.js'
+    },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js?[hash:8]',
@@ -25,7 +28,12 @@ module.exports = {
                 test: /\.js$/,
                 use: [
                     // 'happypack/loader'
-                    'babel-loader',
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            cacheDirectory: true
+                        }
+                    },
                     'eslint-loader'
                 ],
                 exclude: /node_modules/
@@ -63,6 +71,27 @@ module.exports = {
                         esModule: false,
                         limit: 30720
                     }
+                }, {
+                    loader: 'image-webpack-loader',
+                    options: {
+                        mozjpeg: {
+                            progressive: true,
+                            quality: 65
+                        },
+                        optipng: {
+                            enabled: false
+                        },
+                        pngquant: {
+                            quality: [0.65, 0.90],
+                            speed: 4
+                        },
+                        gifsicle: {
+                            interlaced: false
+                        },
+                        webp: {
+                            quality: 75
+                        }
+                    }
                 }]
             },
             {
@@ -86,7 +115,7 @@ module.exports = {
             this.hooks.done.tap('done', (stats) => {
                 if (stats.compilation.errors
                     && stats.compilation.errors.length
-                    && process.argv.indexOf('--watch') == -1) {
+                    && process.argv.indexOf('--watch') === -1) {
                     console.log('build error');
                     process.exit(1);
                 }
@@ -106,8 +135,12 @@ module.exports = {
                 useShortDoctype: true
             }
         })
-        // new HappyPack({
-        //     loaders: ['babel-loader', 'eslint-loader']
-        // })
-    ]
+    ],
+    // resolve: {
+    //     alias: {
+    //         vue: path.resolve(__dirname, './node_modules/vue/dist/vue.runtime.common.js')
+    //     },
+    //     extensions: ['.js'],
+    //     mainFields: ['main']
+    // }
 }

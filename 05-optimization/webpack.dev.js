@@ -4,9 +4,6 @@ const baseConfig = require('./webpack.base');
 
 module.exports = merge(baseConfig, {
     mode: 'development',
-    entry: {
-        index: './src/entry-client.js'
-    },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],

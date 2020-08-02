@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "leo";
+    src: url("./assets/my-font.ttf") format("truetype");
+}
+
+body {
+    background-image: url(./assets/bg.jpg);
+    background-size: cover;
+}
+
+@app-size: 50px;
+#app .line-box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 90vw;
+    margin: 10px 0;
+    font-family: "leo";
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+
+    .message {
+        width: 150px;
+    }
+
+    > span {
+        display: inline-block;
+        height: @app-size;
+        line-height: @app-size;
+        margin-bottom: 15px;
+        padding: 0 10px;
+        text-align: center;
+        background-color: palevioletred;
+        border-radius: 5px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    > img {
+        width: @app-size;
+        height: @app-size;
+        margin-left: 10px;
+        border-radius: 5px;
+    }
+}
+
+// 测试无用 css 擦除
+.unused {
+    color: red;
+}

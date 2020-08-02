@@ -6,9 +6,7 @@ console.log(common());
 
 Vue.config.productionTip = false;
 
-export default function createApp() {
-    const app = new Vue({
-        render: (h) => h(App)
-    });
-    return { app };
-}
+export default new Vue({
+    el: '#app',
+    render: (h) => h(App)
+})
