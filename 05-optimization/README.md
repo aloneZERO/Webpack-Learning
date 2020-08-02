@@ -51,3 +51,12 @@ HappyPack：每次 webpack 解析一个模块，HappyPack 会将它及它的依�
 thread-loader：原理同 HappyPack，由 webpack 官方提供。
 
 本项目使用 HappyPack 和 thread-loader 反而变慢了......猜测其更适用于优化多页面打包。
+
+## 多进程并行压缩代码
+
+方法一：使用 webpack-parallel-uglify-plugin 插件。
+
+方法二：使用 uglifyjs-webpack-plugin 开启 parallel 参数（不支持 ES6 语法压缩）。
+
+方法三：使用 terser-webpack-plugin 开启 parallel 参数。
+
