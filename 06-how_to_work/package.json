@@ -1,0 +1,16 @@
+{
+  "name": "06-how_to_work",
+  "version": "1.0.0",
+  "description": "webpack 打包原理",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
