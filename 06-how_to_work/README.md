@@ -56,15 +56,15 @@ const {
  } = require("tapable");
 ```
 
- 类型 | 功能
- - | -
-Hook | 所有钩子的后缀
-Waterfall | 同步方法，但是它会传值给下一个函数
-Bail | 熔断：当函数有任何返回值，就会在当前执行函数停止
-Loop | 监听函数返回 true 表示继续循环，返回 undefined 表示结束循环
-Sync | 同步方法
-AsyncSeries | 异步串行
-AsyncParallel | 异步并行
+| 类型 | 功能 |
+| - | - |
+| Hook | 所有钩子的后缀 |
+| Waterfall | 同步方法，但是它会传值给下一个函数 |
+| Bail | 熔断：当函数有任何返回值，就会在当前执行函数停止 |
+| Loop | 监听函数返回 true 表示继续循环，返回 undefined 表示结束循环 |
+| Sync | 同步方法 |
+| AsyncSeries | 异步串行 |
+| AsyncParallel | 异步并行 |
 
 Tapable - Hook 基本用法示例
 ```js

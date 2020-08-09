@@ -110,12 +110,12 @@ imagemin 对应的有 image-webpack-loader。
 
 目的：构建体积优化。
 
-方案 | 优点 | 缺点 | 采用
-- | - | - | -
-babel-polyfill | React16 官方推荐 | 1. 包体积200k+，难以单独抽离 Map、Set；<br>2. 若 react 通过 cdn 引用，如果用它，则需要单独构建一份放在 react 前加载 | 否
-babel-plugin-transform-runtime | 只 polyfill 用到的类或方法，相对体积较小 | 不能 polyfill 原型上的方法，不适用于业务项目的复杂开发环境 | 否
-自己写 Map、Set 的 polyfill | 定制化高、体积小 | 1. 重复造轮子；<br>2. 即使体积小，依然所有用户都要加载 | 否
-polyfill-service | 只给用户返回需要的 polyfill，社区维护 | 部分国内浏览器 UA 可能无法识别（但可以降级返回所需全部 polyfill） | 是
+| 方案 | 优点 | 缺点 | 采用 |
+| - | - | - | - |
+| babel-polyfill | React16 官方推荐 | 1. 包体积200k+，难以单独抽离 Map、Set；<br>2. 若 react 通过 cdn 引用，如果用它，则需要单独构建一份放在 react 前加载 | 否 |
+| babel-plugin-transform-runtime | 只 polyfill 用到的类或方法，相对体积较小 | 不能 polyfill 原型上的方法，不适用于业务项目的复杂开发环境 | 否 |
+| 自己写 Map、Set 的 polyfill | 定制化高、体积小 | 1. 重复造轮子；<br>2. 即使体积小，依然所有用户都要加载 | 否 |
+| polyfill-service | 只给用户返回需要的 polyfill，社区维护 | 部分国内浏览器 UA 可能无法识别（但可以降级返回所需全部 polyfill） | 是 |
 
 polyfill-service 原理：识别 user-agent，下发不同的 polyfill。
 
