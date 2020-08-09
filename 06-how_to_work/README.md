@@ -22,3 +22,57 @@ else {}
 ```
 
 启动后的结果：webpack 最终找到 webpack-cli（或 webpack-command）这个 npm 包，并且执行 cli。
+
+## webpack-cli 做了哪些事情？
+
+1.引入 yargs，对命令进行定制。
+
+2.分析命令行参数，对各个参数进行转换，组成编译配置项。
+
+3.引用 webpack，根据配置项进行编译和构建。
+
+## webpack 的本质
+
+webpack 可以将其理解是一种基于事件流的编程范例，一系列的插件运行。
+
+核心对象 `Compiler` 和 `Compilation` 均继承自 `Tapable`。
+
+### Tapable 是什么？
+
+Tapable 是一个类似于 node.js 的 EventEmitter 的库，主要是控制钩子函数的发布与订阅，控制着 webpack 的插件系统。
+
+Tapable 暴露了很多 Hook 类，为插件提供挂载的钩子
+```js
+const {
+	SyncHook,                   // 同步钩子
+	SyncBailHook,               // 同步熔断钩子
+	SyncWaterfallHook,          // 同步流水钩子
+	SyncLoopHook,               // 同步循环钩子
+	AsyncParallelHook,          // 同步并发钩子
+	AsyncParallelBailHook,      // 同步并发熔断钩子
+	AsyncSeriesHook,            // 同步串行钩子
+	AsyncSeriesBailHook,        // 同步串行熔断钩子
+	AsyncSeriesWaterfallHook    // 同步串行流水钩子
+ } = require("tapable");
+```
+
+ 类型 | 功能
+ - | -
+Hook | 所有钩子的后缀
+Waterfall | 同步方法，但是它会传值给下一个函数
+Bail | 熔断：当函数有任何返回值，就会在当前执行函数停止
+Loop | 监听函数返回 true 表示继续循环，返回 undefined 表示结束循环
+Sync | 同步方法
+AsyncSeries | 异步串行
+AsyncParallel | 异步并行
+
+Tapable - Hook 基本用法示例
+```js
+const hook = new SyncHook(["arg1", "arg2", "arg3"]);
+
+// 绑定事件到事件流
+hook.tap('start', (arg1, arg2, arg3) => console.log(arg1, arg2, arg3));
+
+// 执行绑定的事件
+hook.call(1, 2, 3);
+```

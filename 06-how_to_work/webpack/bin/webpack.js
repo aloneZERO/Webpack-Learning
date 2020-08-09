@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // @ts-ignore
 process.exitCode = 0;
 
