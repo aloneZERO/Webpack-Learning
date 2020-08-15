@@ -26,7 +26,7 @@ myCar.hooks.accelerate.tap("LoggerPlugin", newSpeed => console.log(`Accelerating
 myCar.hooks.calculateRoutes.tapPromise("calculateRoutes tapPromise", (source, target, routesList, callback) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            console.log(`calculateRoute from ${source} to ${target} ${routesList}`)
+            console.log(`CalculateRoute from ${source} to ${target} ${routesList}`)
             resolve();
         }, 1000)
     })

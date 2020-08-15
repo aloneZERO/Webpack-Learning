@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js",
-    "test:tapable": "node test/tapable.test.js",
+    "demo:car": "node demo/tapable/car.js",
+    "demo:myplugin": "node demo/tapable/myplugin.js",
     "cli:debug": "node --inspect-brk webpack-cli/cli.js --config webpack.config.js"
   },
   "keywords": [],
