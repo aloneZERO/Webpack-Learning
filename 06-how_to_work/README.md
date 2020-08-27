@@ -154,4 +154,52 @@ webpack 的编译按照如下的钩子调用顺序执行：
 
 ## webpack 流程：文件生成
 
+## 写一个简易的 webpack
+
+模块化：
+- 传统的网页开发转变成 web apps 开发
+- 代码复杂度在逐步增高
+- 分离的 js 文件/模块，便于后续代码的维护性
+- 部署时希望把代码优化成几个 http 请求
+
+```js
+# es module
+import * as app from 'app'
+app.run()
+```
+
+```js
+# cjs
+const app = require('app')
+app.run()
+```
+
+```js
+# amd
+require(['app'], function(app) {
+    app.run()
+})
+```
+
+### AST 基础知识
+抽象语法树（abstract syntax tree），是源代码的抽象语法结构的树状表现形式。树上的每个节点都表示源代码中的一种结构。
+
+在线 demo：<https://esprima.org/demo/parse.html>
+
+webpack 模块机制：
+- 打包出一个匿名闭包
+- modules 是一个数组，每一项是一个模块初始化函数
+- `__webpack_require` 用来加载模块，返回 `module.exports`
+- 通过 `WEBPACK_REQUIRE_METHOD(0)` 启动程序
+
+### 实现简易 webpack 的功能点
+
+可以将 es6 语法转换成 es5
+- 通过 babylon 生成 AST
+- 通过 babel-core 将 AST 重新生成源码
+
+可以分析模块之间的依赖关系
+- 通过 babel-traverse 的 ImportDeclaration 方法获取依赖属性
+
+生成的 js 可以在浏览器中运行
 
