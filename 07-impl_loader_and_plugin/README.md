@@ -34,3 +34,15 @@ compose = (f, g) => (...args) => f(g(...args));
 `loader-runner` 允许你在不安装 webpack 的情况下运行 loaders。
 - 作为 webpack 的依赖，webpack 中使用它执行 loader
 - 进行 loader 的开发和调试
+
+## 更复杂的开发场景
+
+webpack 默认开启 loader 缓存
+- 可使用 `this.cacheable(false)` 关掉缓存
+
+缓存条件：loader 的结果在相同的输入下有确定的输出
+- 有依赖的 loader 无法使用缓存
+
+### loader 如何进行文件输出？
+
+通过 `this.emitFile` 进行文件输出。

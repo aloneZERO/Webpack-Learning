@@ -16,5 +16,8 @@
     "devDependencies": {
         "webpack": "^4.44.1",
         "webpack-cli": "^3.3.12"
+    },
+    "dependencies": {
+        "loader-utils": "^2.0.0"
     }
 }
