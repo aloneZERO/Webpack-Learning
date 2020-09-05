@@ -1,14 +1,14 @@
 {
     "name": "07-impl_loader_and_plugin",
     "version": "1.0.0",
-    "description": "## loader 的链式调用和执行顺序",
+    "description": "loader & plugin",
     "main": "index.js",
     "directories": {
         "test": "test"
     },
     "scripts": {
-        "build": "webpack",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test:loader": "webpack --config webpack.loader.js",
+        "test:plugin": "webpack --config webpack.plugin.js"
     },
     "keywords": [],
     "author": "",

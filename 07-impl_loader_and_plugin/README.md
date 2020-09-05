@@ -46,3 +46,45 @@ webpack 默认开启 loader 缓存
 ### loader 如何进行文件输出？
 
 通过 `this.emitFile` 进行文件输出。
+
+## 插件基本结构
+
+插件没有像 loader 那样的独立运行环境，只能在 webpack 里面运行。
+
+```js
+// 基本结构
+class MyPlugin {
+    apply(compiler) {
+        compiler.hooks.done.tap('my plugin', stats => {
+            console.log('Hello World')
+        })
+    }
+}
+module.exports = MyPlugin
+
+// 插件使用
+{
+    plugins: [new MyPlugin]
+}
+```
+
+## 复杂的插件开发场景
+
+### 错误处理
+
+参数校验阶段直接 throw 错误。
+
+通过 compilation 对象的 warnings 和 errors 接收
+```js
+compilation.warnings.push('warning')
+compilation.errors.push('error')
+```
+
+### 编写插件的插件
+
+插件本身也可以通过暴露 hooks 的方式进行自身扩展，以 html-webpack-plugin 为例
+- html-webpack-plugin-after-chunks (sync)
+- html-webpack-plugin-before-html-generation (async)
+- html-webpack-plugin-after-asset-tags (async)
+- html-webpack-plugin-after-html-processing (async)
+- html-webpack-plugin-after-emit (async)
