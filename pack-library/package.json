@@ -1,5 +1,5 @@
 {
-    "name": "package-library",
+    "name": "pack-library",
     "version": "1.0.0",
     "description": "大整数加法库",
     "main": "index.js",
