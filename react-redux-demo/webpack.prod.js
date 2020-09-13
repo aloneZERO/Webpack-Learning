@@ -1,1 +1,1 @@
-module.exports = require('builder-webpack-geektime/lib/webpack.prod');
+module.exports = require('builder-webpack-react/lib/webpack.prod');

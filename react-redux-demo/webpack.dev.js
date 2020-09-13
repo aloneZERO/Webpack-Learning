@@ -1,1 +1,1 @@
-module.exports = require('builder-webpack-geektime/lib/webpack.dev');
+module.exports = require('builder-webpack-react/lib/webpack.dev');
