@@ -3,7 +3,10 @@ const webpack = require('webpack');
 const baseConfig = require('./webpack.base');
 
 const devConfig = {
-    mode: 'production',
+    mode: 'development',
+    output: {
+        filename: '[name].js'
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
     ],

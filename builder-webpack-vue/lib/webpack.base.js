@@ -52,7 +52,7 @@ module.exports = {
     entry,
     output: {
         path: path.join(projectRoot, 'dist'),
-        filename: '[name].js?[hash:8]',
+        filename: '[name].js?[chunkhash:8]',
         publicPath: '',
     },
     module: {

@@ -4,6 +4,9 @@ const baseConfig = require('./webpack.base');
 
 const devConfig = {
     mode: 'development',
+    output: {
+        filename: '[name].js',
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
     ],
