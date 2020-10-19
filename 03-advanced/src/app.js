@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import { common } from './common';
+import './styles/index.less';
 
 console.log(common());
 
