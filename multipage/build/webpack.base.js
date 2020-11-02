@@ -1,10 +1,8 @@
-'use strict';
 const path = require('path');
 const glob = require('glob');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -15,7 +13,7 @@ const setMPA = () => {
     const entry = {};
     const htmlWebpackPlugins = [];
 
-    const entryFiles = glob.sync(path.join(__dirname, './src/*/index.js'));
+    const entryFiles = glob.sync(path.join(__dirname, '../src/*/index.js'));
     // console.log('entryFiles', entryFiles);
 
     Object.keys(entryFiles)
@@ -27,7 +25,7 @@ const setMPA = () => {
             entry[pageName] = entryFile;
             htmlWebpackPlugins.push(
                 new HtmlWebpackPlugin({
-                    template: path.resolve(__dirname, `src/${pageName}/index.ejs`),
+                    template: path.resolve(__dirname, `../src/${pageName}/index.ejs`),
                     filename: `${pageName}.html`,
                     chunks: [pageName],
                     inject: true,
@@ -52,11 +50,10 @@ const setMPA = () => {
 const { entry, htmlWebpackPlugins } = setMPA();
 
 module.exports = {
-    mode: 'production',
     entry,
     output: {
-        path: path.join(__dirname, 'dist'),
-        filename: '[name].js?[hash:8]',
+        path: path.join(__dirname, '../dist'),
+        filename: 'js/[name].[chunkhash:8].js',
         publicPath: ''
     },
     module: {
@@ -74,24 +71,14 @@ module.exports = {
                 test: /\.less$/,
                 use: [
                     {
-                        loader: MiniCssExtractPlugin.loader
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../'
+                        }
                     },
                     'css-loader',
                     'less-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: [
-                                require('autoprefixer')(),
-                                require('postcss-pxtorem')({
-                                    rootValue: 54,
-                                    unitPrecision: 5,
-                                    propList: ['*']
-                                })
-                            ]
-                        }
-                    },
+                    'postcss-loader'
                 ]
             },
             {
@@ -99,7 +86,7 @@ module.exports = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        name: 'assets/[name].[ext]?[hash:8]',
+                        name: 'assets/[name].[hash:8].[ext]',
                         esModule: false,
                         limit: 30720
                     }
@@ -109,7 +96,7 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 loader: 'file-loader',
                 options: {
-                    name: 'assets/[name].[ext]?[hash:8]',
+                    name: 'assets/[name].[hash:8].[ext]',
                     esModule: false
                 }
             }
@@ -118,13 +105,12 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new VueLoaderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css?[contenthash:8]'
+            filename: 'css/[name].[contenthash:8].css'
         }),
-        new OptimizeCSSAssetsPlugin({
-            assetNameRegExp: /\.css/g,
-            cssProcessor: require('cssnano')
-        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        })
     ].concat(htmlWebpackPlugins)
 }
