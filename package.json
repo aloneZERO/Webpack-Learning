@@ -18,8 +18,8 @@
     },
     "homepage": "https://github.com/aloneZERO/webpack-learning#readme",
     "devDependencies": {
-        "conventional-changelog-cli": "^2.0.34",
-        "cz-conventional-changelog": "^3.1.0"
+        "conventional-changelog-cli": "^2.2.2",
+        "cz-conventional-changelog": "^3.3.0"
     },
     "config": {
         "commitizen": {
